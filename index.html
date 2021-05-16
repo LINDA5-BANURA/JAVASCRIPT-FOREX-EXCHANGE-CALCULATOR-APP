@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+  background-color: #FFD700;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  
+}
+
+.row {
+  width: 96%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+select,
+input[type="text"] {
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  max-width: 425px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: burlywood;
+}
+
+.btn {
+  border: 15;
+  width: 100%;
+  height: 45px;
+  display: block;
+  cursor: pointer;
+  margin-top: 15px;
+  max-width: 425px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  letter-spacing: 2.2px;
+  background-color: #333999;
+  
+}
+
+.banner {
+  color: #1E90FF;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.amount {
+  color: #1E90FF;
+  font-size: 4rem;
+  text-align: left;
+}
+
+#js {
+  font-size: 3rem;
+  margin-bottom: 0;
+}
+
+#currency {
+  font-size: 2.5rem;
+}
+
+#country-code {
+  font-size: 1.5rem;
+}
+
+  .column {
+    max-width: 1300px;
+  }
+  form {
+    max-width: unset;
+    min-width: 1300px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  </style>
+
+<html>
+
+<div class="container">
+  <div class="row">
+    <h1 class="banner">FOREX EXCHANGE CALCULATOR APP</h1>
+    <div class="column">
+      <form action="" method="POST">
+        <label for="amount">Amount:
+          <input id="amount" name="amount" type="text" value="" placeholder="Amount" required>
+        </label>
+
+        <label for="rate">From:
+            <select id="rate">
+              <option value="USD">US DOLLAR(USD)</option>
+              <option value="PDS">POUNDS (PDS)</option>
+              <option value="UGS">UG SHILLINGS(UGS)</option>
+              <option value="CAD">CANADIAN DOLLAR(CAD)</option>
+              <option value="KSH">KENYA SHILLINGS(KSH)</option>
+              <option value="TZS">TZ SHILLINGS(TZS)</option>
+              <option value="RWD">RWD FRAC(RWD)</option>
+              <option value="SD">SUDANESE DOLLAR(SD)</option>
+              <option value="RP">INDIAN RUPEES(RP)</option>
+              <option value="NAIRA">NIGERIA NAIRA(NAIRA)</option>
+              <option value="EU">EURO(EU)</option>
+
+            </select>
+          </label>
+
+        <label for="to">To:
+            <select id="to">
+              <option value="USD">US DOLLAR(USD)</option>
+              <option value="PDS">POUNDS(PDS)</option>
+              <option value="UGS">UG SHILLINGS(UGS)</option>
+              <option value="CAD">CANADIAN DOLLAR CAD)</option>
+              <option value="KSH">KENYA SHILLINGS(KSH)</option>
+              <option value="TZS">TZ SHILLINGS(TZS)</option>
+              <option value="RWD">RWD FRAC (RWD)</option>
+              <option value="SD">SUDANESE DOLLAR(SD)</option>
+              <option value="RP">INDIAN RUPEES(RP)</option>
+              <option value="NAIRA">NIGERIA NAIRA(NAIRA)</option>
+              <option value="EU">EURO(EU)</option>
+            </select>
+          </label>
+
+      </form>
+
+    </div>
+
+    <button class="btn" type="button">CALCULATE</button>
+
+    <h2 class="amount"><span id="currency"></span><span id="total"></span><span id="country-code"></span></h2>
+
+    <table id="hide"></table>
+
+
+</body>
+</html>
+<script>
+    "use strict";
+
+
+const form = document.querySelector("form");
+const button = document.querySelector(".btn");
+
+document.getElementById("hide").style.visibility = "hidden";
+
+
+const calculateAmount = (rate1, rate2, amount) => {
+    let sum = amount * rate2;
+    return `${sum.toFixed(2)}`;
+};
+
+
+const displayAmount = event => {
+    event.preventDefault();
+
+    let sum = Number(document.getElementById("amount").value);
+    let exchangeRate1 = document.getElementById("rate").value;
+    let exchangeRate2 = document.getElementById("to").value;
+    let currency = document.getElementById("currency");
+    let total = document.getElementById("total");
+    let code = document.getElementById("country-code");
+
+    if (isNaN(sum)) {
+        document.getElementById("NAN").style.visibility = "visible";
+        currency.textContent = "NAN";
+        total.textContent = "Input not valid.";
+        code.textContent = "";
+        return;
+    } else {
+    
+        document.getElementById("hide").style.visibility = "visible";
+
+        let rate1;
+        let rate2;
+
+        switch (exchangeRate1) {
+            case "USD":
+                rate1 = 200.8;
+                break;
+            case "PDS":
+                rate1 = 420.5;
+                break;
+            case "UGS":
+                rate1 = 12.8;
+                break;
+            case "CAD":
+                rate1 = 111.0;
+                break;
+            case "KSH":
+                rate1 = 14.3;
+                break;
+            case "TZS":
+                rate1 = 15;
+                break;
+            case "RWD":
+                rate1 = 10;
+                break;
+            case "SD":
+                rate1 = 567.2;
+                break;
+            case "RP":
+                rate1 = 1.2;
+                break;
+            case "NAIRA":
+                rate1 = 21.2;
+                break;
+            case "EU":
+                rate1 = 213.2;
+                break;
+            default:
+                return;
+        }
+
+        switch (exchangeRate2) {
+            case "USD":
+                rate2 = 200.8;
+                break;
+            case "PDS":
+                rate2 = 500.5;
+                break;
+            case "UGS":
+                rate2 = 69.8;
+                break;
+            case "CAD":
+                rate2 = 11.0;
+                break;
+            case "KSH":
+                rate2 = 145.3;
+                break;
+            case "TZS":
+                rate2 = 15;
+                break;
+            case "RWD":
+                rate2 = 10;
+                break;  
+            case "SD":
+                rate2 = 567.2;
+                break;
+            case "RP":
+                rate2 = 1.2;
+                break;
+            case "NAIRA":
+                rate2 = 21.2;
+                break;
+            case "EU":
+                rate2 = 512.2;
+                break;
+                return;
+        }
+
+        currency.textContent = "";
+        total.textContent = calculateAmount(rate1, rate2, sum);
+        code.textContent = exchangeRate2;
+    }
+};
+
+form.addEventListener("submit", displayAmount);
+button.addEventListener("click", displayAmount);
+
+
+</script>
+</html>
